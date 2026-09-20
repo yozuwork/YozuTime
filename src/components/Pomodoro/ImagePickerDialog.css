@@ -1,0 +1,113 @@
+.image-picker-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 130;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(20, 24, 32, 0.32);
+}
+
+.image-picker-dialog {
+  width: 420px;
+  max-width: 100%;
+  max-height: calc(100vh - 40px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 20px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 18px;
+  background: var(--surface-1);
+  box-shadow: var(--shadow-hover);
+  overflow: hidden;
+}
+
+.image-picker-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.image-picker-header h2 {
+  margin: 0;
+  font-size: 16px;
+  color: var(--text-primary);
+}
+
+.image-picker-header button {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-tertiary);
+  cursor: pointer;
+}
+
+.image-picker-header button:hover {
+  background: var(--surface-hover);
+}
+
+.image-picker-upload-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 11px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.image-picker-upload-button:hover {
+  filter: brightness(1.05);
+}
+
+.image-picker-section-title {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.image-picker-empty {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-tertiary);
+}
+
+.image-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.image-picker-item {
+  aspect-ratio: 1;
+  padding: 0;
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--accent-soft);
+  cursor: pointer;
+}
+
+.image-picker-item:hover {
+  border-color: var(--accent);
+}
+
+.image-picker-item img,
+.image-picker-item video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

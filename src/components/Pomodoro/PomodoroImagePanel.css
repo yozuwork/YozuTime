@@ -1,0 +1,115 @@
+.pomodoro-image-panel {
+  width: 168px;
+  flex-shrink: 0;
+  padding: 14px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--focus-radius, 16px);
+  background: var(--surface-1);
+}
+
+.pomodoro-image-panel-title {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.pomodoro-image-list {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.pomodoro-image-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.pomodoro-image-preview {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px dashed color-mix(in srgb, var(--accent) 38%, var(--border-subtle));
+  border-radius: 11px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  cursor: pointer;
+}
+
+.pomodoro-image-preview img,
+.pomodoro-image-preview video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pomodoro-image-item-info {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pomodoro-image-item-info strong {
+  font-size: 11.5px;
+  color: var(--text-primary);
+}
+
+.pomodoro-image-item-info small {
+  font-size: 9.5px;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+}
+
+.pomodoro-image-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.pomodoro-image-actions button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font-size: 9.5px;
+  cursor: pointer;
+}
+
+.pomodoro-image-actions button:hover {
+  text-decoration: underline;
+}
+
+.pomodoro-image-panel-error {
+  display: block;
+  margin-top: 9px;
+  font-size: 9.5px;
+  line-height: 1.35;
+  color: var(--danger);
+}
+
+.pomodoro-image-panel-gallery-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+  margin-top: 13px;
+  padding: 8px 10px;
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  background: none;
+  color: var(--accent);
+  font-size: 11.5px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.pomodoro-image-panel-gallery-link:hover {
+  background: var(--accent-soft);
+}

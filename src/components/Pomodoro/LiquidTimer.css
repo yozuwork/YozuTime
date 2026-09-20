@@ -1,0 +1,246 @@
+.liquid-timer {
+  position: relative;
+  width: 260px;
+  height: 260px;
+  margin: 12px auto 0;
+}
+
+.liquid-timer-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--border-subtle);
+  background: var(--surface-1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.liquid-timer-clip {
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.liquid-timer-fill {
+  position: absolute;
+  left: -30%;
+  right: -30%;
+  bottom: 0;
+  height: 0%;
+  background: var(--focus-color);
+  opacity: 0.9;
+  transition: height 0.6s ease;
+  border-radius: 45% 45% 0 0 / 16% 16% 0 0;
+}
+
+.liquid-timer-fill::before,
+.liquid-timer-fill::after {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 0;
+  width: 200%;
+  height: 24px;
+  background: inherit;
+  border-radius: 45%;
+  animation: liquid-wave var(--sand-drift-duration, 6.67s) linear infinite;
+  animation-play-state: paused;
+}
+
+.liquid-timer-fill::after {
+  top: -8px;
+  opacity: 0.55;
+  animation-duration: var(--sand-secondary-drift-duration, 10.33s);
+  animation-direction: reverse;
+}
+
+.liquid-timer.is-running .liquid-timer-fill::before,
+.liquid-timer.is-running .liquid-timer-fill::after {
+  animation-play-state: running;
+}
+
+/* 大圓落砂區，進度升高時下落距離同步縮短。 */
+.liquid-timer-sand-fall {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  top: 8px;
+  left: 50%;
+  width: 10px;
+  height: max(0px, calc(100% - var(--sand-progress, 0%) - 16px));
+  transform: translateX(-50%);
+  overflow: hidden;
+  opacity: 0;
+  transition: height 600ms linear, opacity 180ms ease;
+}
+
+.liquid-timer.is-running .liquid-timer-sand-fall {
+  opacity: 0.3;
+}
+
+.liquid-timer-sand-fall i {
+  position: absolute;
+  top: -10px;
+  left: 3px;
+  width: 4px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--focus-color);
+  animation: liquid-sand-fall var(--sand-fall-duration, 3s) linear infinite;
+}
+
+.liquid-timer-sand-fall i:nth-child(2) {
+  left: 0;
+  animation-delay: -0.38s;
+}
+
+.liquid-timer-sand-fall i:nth-child(3) {
+  left: 6px;
+  animation-delay: -0.76s;
+}
+
+/* 直線型：連續沙柱落到中央沙丘頂端。 */
+.liquid-timer.sand-style-stream .liquid-timer-sand-fall {
+  width: 7px;
+  height: max(
+    0px,
+    calc(100% - var(--sand-progress, 0%) - var(--sand-mound-height, 0px) - 16px)
+  );
+}
+
+.liquid-timer.sand-style-stream .liquid-timer-sand-fall::before {
+  content: '';
+  position: absolute;
+  inset: 0 2px;
+  border-radius: 999px;
+  background: linear-gradient(to bottom, transparent, var(--focus-color) 6%, var(--focus-color) 94%, transparent);
+  animation: liquid-sand-stream-pulse var(--sand-fall-duration, 3s) ease-in-out infinite;
+}
+
+.liquid-timer.sand-style-stream .liquid-timer-sand-fall i {
+  display: none;
+}
+
+/* 直線落砂下方不使用波浪，改成隨進度變高、變寬的物理錐形堆積。 */
+.liquid-timer.sand-style-stream .liquid-timer-fill {
+  border-radius: 0;
+}
+
+.liquid-timer.sand-style-stream .liquid-timer-fill::before {
+  left: 50%;
+  top: calc(-1 * var(--sand-mound-height, 0px));
+  width: var(--sand-mound-width, 0px);
+  height: calc(var(--sand-mound-height, 0px) + 1px);
+  transform: translateX(-50%);
+  clip-path: polygon(49% 0, 57% 8%, 66% 24%, 76% 48%, 100% 100%, 0 100%, 24% 48%, 35% 24%, 44% 8%);
+  border-radius: 0;
+  background:
+    radial-gradient(circle, color-mix(in srgb, var(--focus-color) 68%, white) 0 0.9px, transparent 1.3px)
+      3px 2px / 11px 10px,
+    radial-gradient(circle, rgba(255, 255, 255, 0.75) 0 0.8px, transparent 1.2px)
+      8px 6px / 13px 12px,
+    var(--focus-color);
+  animation: none;
+  transition: width 600ms linear, height 600ms linear, top 600ms linear;
+}
+
+.liquid-timer.sand-style-stream .liquid-timer-fill::after {
+  inset: 0;
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  opacity: 0.2;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.9) 0 0.8px, transparent 1.2px),
+    radial-gradient(circle, color-mix(in srgb, var(--focus-color) 55%, white) 0 0.8px, transparent 1.2px);
+  background-position: 2px 3px, 9px 10px;
+  background-size: 14px 13px, 17px 16px;
+  animation: none;
+}
+
+@keyframes liquid-wave {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes liquid-sand-fall {
+  to { transform: translateY(270px); }
+}
+
+@keyframes liquid-sand-stream-pulse {
+  0%, 100% { opacity: 0.55; transform: scaleX(0.72); }
+  50% { opacity: 1; transform: scaleX(1.22); }
+}
+
+.liquid-timer-center {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.liquid-timer-time {
+  font-size: 44px;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+  font-family: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.liquid-timer-time:disabled {
+  cursor: default;
+}
+
+.liquid-timer-time:not(:disabled):hover {
+  color: var(--focus-color);
+}
+
+.liquid-timer-time-input {
+  width: 96px;
+  text-align: center;
+  border-bottom: 2px solid var(--focus-color);
+  cursor: text;
+}
+
+.liquid-timer-time-input::-webkit-inner-spin-button,
+.liquid-timer-time-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.liquid-timer-label {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+}
+
+.liquid-timer-percentage {
+  position: absolute;
+  bottom: 26px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  font-size: 13px;
+  color: var(--text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .liquid-timer-fill::before,
+  .liquid-timer-fill::after,
+  .liquid-timer-sand-fall::before,
+  .liquid-timer-sand-fall i {
+    animation: none;
+  }
+}

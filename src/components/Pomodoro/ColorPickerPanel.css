@@ -1,0 +1,42 @@
+.color-picker-panel {
+  background: var(--surface-1);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--focus-radius, 16px);
+  padding: 16px;
+  width: 168px;
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+
+.color-picker-panel-title {
+  display: block;
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.color-picker-swatches {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.color-swatch {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-soft);
+}
+
+.color-swatch:hover {
+  filter: brightness(1.05);
+}
+
+.color-swatch-check {
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.25));
+}

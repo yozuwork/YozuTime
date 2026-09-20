@@ -1,0 +1,10 @@
+.pomodoro-view {
+  max-width: 760px;
+  margin: 22px auto 0;
+  padding: 0 16px;
+}
+
+/* 主頁面卡片可以拖拉放大到超過一般頁面的閱讀寬度，只有這個分頁需要放寬容器上限。 */
+.pomodoro-view-widget {
+  max-width: 1440px;
+}
